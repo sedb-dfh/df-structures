@@ -355,7 +355,10 @@
             <flag-bit name='worshipping'/>
         </bitfield>
 
-        <stl-vector since='v0.47.01' comment='contains int32_t pairs'/>
+        <stl-vector since='v0.47.01'>
+            <int32_t/>
+            <enum name='profession' base-type='uint16_t' type-name='profession'/>
+        </stl-vector>
         <stl-vector name='entity_links' pointer-type='entity_entity_link'/>
         <stl-vector name='site_links' pointer-type='entity_site_link'/>
 
@@ -1226,52 +1229,164 @@
     <struct-type type-name='agreement' key-field='id'
                  instance-vector='$global.world.agreements.all'>
         <int32_t name='id'/>
-        <stl-vector name='parties'>
-            <pointer>
-                <int32_t name='id'/>
-                <stl-vector type-name='int32_t' name='histfig_ids' ref-target='historical_figure'/>
-                <stl-vector type-name='int32_t' name='entity_ids' ref-target='historical_entity'/>
-                <stl-vector>
-                    <pointer>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                    </pointer>
-                </stl-vector>
-            </pointer>
-        </stl-vector>
+        <stl-vector name='parties' pointer-type='agreement_party'/>
         <int32_t name='next_party_id'/>
-        <stl-vector name='details'>
-            <pointer>
-                <int32_t name='id'/>
-                <int32_t name='year'/>
-                <int32_t name='year_tick'/>
-                <compound name='data' is-union='true'>
-                    <pointer name='data0'>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t/>
-                    </pointer>
-                    <pointer name='data1'>
-                        <enum name='reason' base-type='int32_t' type-name='history_event_reason'/>
-                        <int32_t/>
-                        <int32_t/>
-                        <int32_t name='site' ref-target='world_site'/>
-                        <int32_t name='artifact' ref-target='artifact_record'/>
-                        <int32_t/>
-                    </pointer>
-                </compound>
-                <int32_t name='type'/>
-            </pointer>
-        </stl-vector>
+        <stl-vector name='details' pointer-type='agreement_details'/>
         <int32_t name='next_details_id'/>
         <int32_t/>
         <int32_t/>
-        <int32_t since='v0.42.01'/>
+        <bitfield since='v0.42.01'>
+            <flag-bit comment='this gets unset by accepting a petition'/>
+        </bitfield>
+    </struct-type>
+
+    <struct-type type-name='agreement_party' key-field='id'>
+        <int32_t name='id'/>
+        <stl-vector type-name='int32_t' name='histfig_ids' ref-target='historical_figure'/>
+        <stl-vector type-name='int32_t' name='entity_ids' ref-target='historical_entity'/>
+        <stl-vector>
+            <pointer>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+            </pointer>
+        </stl-vector>
+    </struct-type>
+
+    <enum-type type-name='agreement_details_type' base-type='int32_t'>
+        <enum-item name='JoinParty'/>
+        <enum-item name='DemonicBinding'/>
+        <enum-item name='Residency'/>
+        <enum-item name='Citizenship'/>
+        <enum-item name='Parley'/>
+        <enum-item name='PositionCorruption' comment="Embezzlement and accepting bribes seen. For own gain and for 'sponsor'"/>
+        <enum-item name='PlotStealArtifact'/>
+        <enum-item name='PromisePosition'/>
+        <enum-item name='PlotAssassination'/>
+        <enum-item name='PlotAbduct'/>
+        <enum-item/>
+        <enum-item name='PlotConviction'/>
+        <enum-item name='Location'/>
+        <enum-item name='PlotInfiltrationCoup'/>
+        <enum-item name='PlotFrameTreason'/>
+    </enum-type>
+    
+    <struct-type type-name='agreement_details' key-field='id'>
+        <int32_t name='id'/>
+        <int32_t name='year'/>
+        <int32_t name='year_tick'/>
+        <compound name='data' is-union='true'>
+            <pointer name='JoinParty' type-name='agreement_details_data_join_party'/>
+            <pointer name='DemonicBinding' type-name='agreement_details_data_demonic_binding'/>
+            <pointer name='Residency' type-name='agreement_details_data_residency'/>
+            <pointer name='Citizenship' type-name='agreement_details_data_citizenship'/>
+            <pointer name='Parley' type-name='agreement_details_data_parley'/>
+            <pointer name='PositionCorruption' type-name='agreement_details_data_position_corruption'/>
+            <pointer name='PlotStealArtifact' type-name='agreement_details_data_plot_steal_artifact'/>
+            <pointer name='PromisePosition' type-name='agreement_details_data_promise_position'/>
+            <pointer name='PlotAssassination' type-name='agreement_details_data_plot_assassination'/>
+            <pointer name='PlotAbduct' type-name='agreement_details_data_plot_abduct'/>
+            <pointer/>
+            <pointer name='PlotConviction' type-name='agreement_details_data_plot_conviction'/>
+            <pointer name='Location' type-name='agreement_details_data_location'/>
+            <pointer name='PlotInfiltrationCoup' type-name='agreement_details_data_plot_infiltration_coup'/>
+            <pointer name='PlotFrameTreason' type-name='agreement_details_data_plot_frame_treason'/>
+        </compound>
+        <enum name='type' base-type='int32_t' type-name='agreement_details_type'/>
+    </struct-type>
+
+    <struct-type type-name='agreement_details_data_join_party'>
+        <enum name='reason' base-type='int32_t' type-name='history_event_reason'/>
+        <int32_t name='member' ref-target='agreement_party'/>
+        <int32_t name='party' ref-target='agreement_party'/>
+        <int32_t name='site' ref-target='world_site'/>
+        <int32_t name='entity' ref-target='historical_entity'/>
+        <int32_t name='figure' ref-target='historical_figure'/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_demonic_binding'>
+        <enum name='reason' base-type='int32_t' type-name='history_event_reason'/>
+        <int32_t name='demon' ref-target='agreement_party'/>
+        <int32_t name='summoner' ref-target='agreement_party'/>
+        <int32_t name='site' ref-target='world_site'/>
+        <int32_t name='artifact' ref-target='artifact_record'/>
+        <enum name='sphere' type-name='sphere_type'/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_residency'>
+        <enum name='reason' base-type='int32_t' type-name='history_event_reason'/>
+        <int32_t name='applicant' ref-target='agreement_party'/>
+        <int32_t name='government' ref-target='agreement_party'/>
+        <int32_t name='site' ref-target='world_site'/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_citizenship'>
+        <int32_t name='applicant' ref-target='agreement_party'/>
+        <int32_t name='government' ref-target='agreement_party'/>
+        <int32_t name='site' ref-target='world_site'/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_parley'>
+        <int32_t/>
+        <int32_t name='party_id' ref-target='agreement_party'/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_position_corruption'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t init-value='-1'/>
+        <int32_t init-value='-1'/>
+        <int32_t/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_steal_artifact'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t init-value='-1'/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_promise_position'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <stl-vector/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_assassination'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_abduct'>
+        TODO
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_conviction'>
+        <stl-vector/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_location'>
+        <int32_t name='party_id' ref-target='agreement_party'/>
+        <int32_t/>
+        <int32_t name='site' ref-target='world_site'/>
+        <enum name='type' base-type='int32_t' type-name='abstract_building_type'/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <enum base-type='int32_t'>
+            <enum-item name='Minor' value='1' comment='temple or guildhall'/>
+            <enum-item name='Major' value='2' comment='temple complex or grand guildhall'/>
+        </enum>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_infiltration_coup'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+    </struct-type>
+    <struct-type type-name='agreement_details_data_plot_frame_treason'>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
+        <int32_t/>
     </struct-type>
 
 </data-definition>
