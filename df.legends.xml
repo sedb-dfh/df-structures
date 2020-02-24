@@ -31,7 +31,13 @@
                 <int32_t name='unk2'/>
             </pointer>
         </stl-vector>
-        <stl-vector/>
+        <stl-vector>
+            <pointer>
+                <int32_t name='idx'/>
+                <int32_t name='unk1'/>
+                <int32_t name='unk2'/>
+            </pointer>
+        </stl-vector>
         <stl-vector>
             <pointer>
                 <int32_t name='idx'/>
@@ -93,7 +99,6 @@
         <int32_t name='unk12' init-value='-1'/>
         <int32_t name='unk_v47_1'/>
         <int32_t name='unk_v47_2'/>
-        <int32_t name='unk_v47_3'/>
         <df-flagarray name='flags' index-enum='nemesis_flags'/>
     </struct-type>
 

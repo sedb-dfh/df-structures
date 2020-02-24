@@ -252,8 +252,18 @@
             <int32_t name="root_body_part_id" comment='ID of the root body part in the corpse or corpse piece which was reanimated to produce undead historical figure'/>
             <stl-string name="undead_name" comment='display name of reanimated creatures in legends mode'/>
             <int32_t name="unk_fc"/>
-            <pointer/>
-            <pointer/>
+            <pointer>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+            </pointer>
+            <pointer>
+                <stl-vector type-name='int32_t'/>
+                <stl-vector type-name='int32_t'/>
+            </pointer>
         </pointer>
 
         <pointer name='books' since='v0.34.01'>
@@ -265,22 +275,23 @@
             <int32_t name='flags' since='v0.44.06'/>
             <int16_t since='v0.44.06' comment='not saved'/>
             <int32_t since='v0.47.01'/>
-            <int32_t since='v0.47.01'/>
         </pointer>
 
         <pointer name='reputation' since='v0.34.01'>
             <stl-vector name="wanted">
                 <pointer>
-                    <int32_t name='entity_id' ref-target='historical_entity'/>
-                    <stl-vector name='types'><enum type-name='reputation_type'/></stl-vector>
-                    <stl-vector name='levels' type-name='int32_t' comment='1 to 100: rumored to legendary'/>
-                    <int32_t name="discovered_year"/>
-                    <int32_t name="discovered_time"/>
-                    <int32_t name="unsolved_murders"/>
-                    <int32_t comment='uninitialized'/>
+                    <compound name='unk'>
+                        <int32_t name='entity_id' ref-target='historical_entity'/>
+                        <stl-vector name='types'><enum type-name='reputation_type'/></stl-vector>
+                        <stl-vector name='levels' type-name='int32_t' comment='1 to 100: rumored to legendary'/>
+                        <int32_t name="discovered_year"/>
+                        <int32_t name="discovered_time"/>
+                        <int32_t name="unsolved_murders"/>
+                        there's an unused dword here on 64-bit
+                    </compound>
                     <int32_t/>
                     <int32_t/>
-                    <int32_t/>
+                    <int32_t init-value='-1'/>
                 </pointer>
             </stl-vector>
             <stl-vector> same exact struct as above
@@ -399,8 +410,123 @@
                 </pointer>
             </stl-vector>
             <int32_t/>
-            <pointer/>
+            <pointer name='unk'>
+                <stl-vector name='unk1' type-name='int32_t'/>
+                <stl-vector name='unk2' type-name='int32_t'/>
+                <stl-vector name='unk3' type-name='int32_t'/>
+                <stl-vector name='unk4' type-name='int32_t'/>
+                <stl-vector name='unk5'>
+                    <pointer>
+                        <int32_t name='unk5_1'/>
+                        <int32_t name='unk5_2'/>
+                        <int32_t name='unk5_3' init-value='-1'/>
+                        <int32_t name='unk5_4'/>
+                        <stl-vector name='unk5_5' type-name='int32_t'/>
+                        <compound name='unk5_data' is-union='true'>
+                            this is probably a tagged union
+                            need to find where the tag is
+                            <pointer name='unk5_t0'>
+                                <stl-vector name='unk5_t0_1' type-name='int32_t'/>
+                            </pointer>
+                            <pointer name='unk5_t1'>
+                                <int32_t name='unk5_t1_1'/>
+                                <int32_t name='unk5_t1_2'/>
+                                <int32_t name='unk5_t1_3'/>
+                            </pointer>
+                        </compound>
+                        <int32_t name='unk5_7' init-value='-1'/>
+                        <int32_t name='unk5_8' init-value='-1'/>
+                        <int32_t name='unk5_9' init-value='-1'/>
+                        <int32_t name='unk5_10' init-value='-1'/>
+                        <int32_t name='unk5_11' init-value='-1'/>
+                        <int32_t name='unk5_12' init-value='-1'/>
+                        <int32_t name='unk5_13' init-value='-1'/>
+                        <int32_t name='unk5_14' init-value='-1'/>
+                        <int32_t name='unk5_15' init-value='-1'/>
+                    </pointer>
+                </stl-vector>
+                <int32_t name='unk6'/>
+                <stl-vector name='unk7' pointer-type='historical_figure_info_relationships_unk7'/>
+                <stl-vector name='unk8' pointer-type='historical_figure_info_relationships_unk7'/>
+                <stl-vector name='unk9'>
+                    <pointer>
+                        <int32_t name='unk9_1'/>
+                        <int32_t name='unk9_2'/>
+                        <int32_t name='unk9_3' init-value='-1'/>
+                        <int32_t name='unk9_4' init-value='-1'/>
+                        <int32_t name='unk9_5' init-value='-1'/>
+                        <int32_t name='unk9_6'/>
+                        <int32_t name='unk9_7' init-value='-1'/>
+                        <int32_t name='unk9_8'/>
+                        <int32_t name='unk9_9'/>
+                        <int32_t name='unk9_10' init-value='-1'/>
+                        <int32_t name='unk9_11' init-value='-1'/>
+                        <stl-vector name='unk9_12' type-name='int32_t'/>
+                    </pointer>
+                </stl-vector>
+                <int32_t name='unk10'/>
+                <stl-vector name='unk11'/>
+                <stl-vector name='unk12'/>
+                <int32_t name='unk13'/>
+                <stl-vector name='unk14'/>
+                <int32_t name='unk15'/>
+                <int32_t name='unk16' init-value='-1'/>
+                <int32_t name='unk17' init-value='-1'/>
+            </pointer>
         </pointer>
+    </struct-type>
+
+    <struct-type type-name='historical_figure_info_relationships_unk7'>
+        <int32_t name='unk1'/>
+        <stl-vector name='unk2'>
+            <pointer>
+                <int32_t name='index'/>
+                <stl-vector name='unk2_2' type-name='int32_t'/>
+                <pointer name='unk2_3'/>
+                <pointer name='unk2_4'/>
+                <pointer name='unk2_5'/>
+                <pointer name='unk2_6'/>
+                <pointer name='unk2_7'/>
+                <pointer name='unk2_8'/>
+            </pointer>
+        </stl-vector>
+        <int32_t name='unk3'/>
+        <stl-vector name='unk4'>
+            <pointer>
+                <int32_t name='unk4_1'/>
+                <int32_t name='unk4_2'/>
+                <int32_t name='unk4_3'/>
+                <compound name='unk4_data' is-union='true'>
+                    <pointer name='unk4_t5'>
+                        <int32_t name='unk4_t5_1'/>
+                        <int32_t name='unk4_t5_2'/>
+                        <int32_t name='unk4_t5_3'/>
+                        <int32_t name='unk4_t5_4'/>
+                        <int32_t name='unk4_t5_5'/>
+                        <int32_t name='unk4_t5_6'/>
+                    </pointer>
+                    <pointer name='unk4_t6'>
+                        <int32_t name='unk4_t6_1'/>
+                        <int32_t name='unk4_t6_2'/>
+                        <int32_t name='unk4_t6_3'/>
+                        <int32_t name='unk4_t6_4'/>
+                    </pointer>
+                </compound>
+                <enum name='unk4_type' base-type='int32_t'>
+                    <enum-item name='unk4_t0'/>
+                    <enum-item name='unk4_t1'/>
+                    <enum-item name='unk4_t2'/>
+                    <enum-item name='unk4_t3'/>
+                    <enum-item name='unk4_t4'/>
+                    <enum-item name='unk4_t5'/>
+                    <enum-item name='unk4_t6'/>
+                </enum>
+            </pointer>
+        </stl-vector>
+        <int32_t name='unk5'/>
+        <int32_t name='unk6'/>
+        <int32_t name='unk7'/>
+        <int32_t name='unk8'/>
     </struct-type>
 
     <enum-type type-name='histfig_flags'>
@@ -544,8 +670,18 @@
 
         <pointer name='info' type-name='historical_figure_info'/>
 
-        <int32_t name="unk_v47_1" comment="Did get a 'pointer' to something that definitely wasn't a site here"/>
-        <int32_t name="unk_v47_2"/>
+        <pointer name='unk_v47_1'>
+            <int32_t/>
+            <int32_t comment='uninitialized'/>
+            <int32_t comment='uninitialized'/>
+            <int32_t comment='uninitialized'/>
+            <int32_t comment='uninitialized'/>
+            <int32_t comment='uninitialized'/>
+            <int16_t/>
+            <int32_t comment='uninitialized'/>
+            <int32_t comment='uninitialized'/>
+            <int32_t/>
+        </pointer>
         <pointer name="unk_f0" type-name="world_site"/>
         <pointer name="unk_f4" type-name="language_name"/>
         <pointer name="unk_f8" type-name="world_underground_region"/>
@@ -553,11 +689,11 @@
             <df-array name="unk_0" type-name='uint8_t'/>
             <df-array name="unk_8" type-name='int16_t'/>
         </pointer>
-        <int32_t name="unk_100"/>
-        <int32_t name="unk_v47_3" comment="ditto"/>
-        <int32_t name="unk_v47_4" comment="ditto"/>
+        <pointer name="unk_v47_2"/>
+        <int32_t name="unk_v47_3"/>
+        <int32_t name="unk_v47_4"/>
         <int32_t name='unk_v4019_1' init-value='-1' since='v0.40.17-19'/>
-        <padding size="1" comment='unknown size - not initialized or saved/loaded'/>
+        <int32_t init-value='-1'/>
     </struct-type>
 
     <struct-type type-name='identity'
@@ -888,7 +1024,7 @@
         <enum-item name='bring_death_to_the_world'>
             <item-attr name='caption' value='that more might die'/>
         </enum-item>
-        
+
         <enum-item name='liked_appearance'>
             <item-attr name='caption' value='that all should gaze upon a truly gruesome visage'/>
         </enum-item>
@@ -1105,7 +1241,7 @@
         <enum-item name='smooth_operation'>
             <item-attr name='caption' value='to smooth the operation of an unknown civilization'/>
         </enum-item>
-        
+
         <enum-item name='nuance_belief'>
             <item-attr name='caption' value='due to a belief in nuances of'/>
         </enum-item>
@@ -1136,7 +1272,7 @@
         <enum-item name='lack_of_funds'>
             <item-attr name='caption' value='due to lack of funds'/>
         </enum-item>
-        
+
         <enum-item name='battle_losses'>
             <item-attr name='caption' value='after taking heavy losses in battle'/>
         </enum-item>
@@ -1356,6 +1492,7 @@
         <int32_t name='defender_civ' ref-target='historical_entity'/>
         <int32_t name='site_civ' ref-target='historical_entity'/>
         <int32_t name='site' ref-target='world_site'/>
+        <int32_t/>
     </class-type>
 
     <class-type type-name='history_event_created_sitest' inherits-from='history_event'>
@@ -1363,6 +1500,7 @@
         <int32_t name='site_civ' ref-target='historical_entity'/>
         <int32_t name='site' ref-target='world_site'/>
         <int32_t name='builder_hf' ref-target='historical_figure' since='v0.40.01'/>
+        <int32_t init-value='-1' since='v0.47.01'/>
     </class-type>
 
     <enum-type type-name='death_type' base-type='int16_t'>
@@ -1422,7 +1560,6 @@
         <enum-item name='LEAPT_FROM_HEIGHT'/>
         <enum-item name='DROWN_ALT2'/>
         <enum-item name='EXECUTION_GENERIC'/>
-        <enum-item/>
     </enum-type>
 
     <class-type type-name='history_event_hist_figure_diedst' inherits-from='history_event'>
@@ -1566,6 +1703,7 @@
         <int32_t name='site' ref-target='world_site'/>
         <int32_t/>
         <int32_t/>
+        <int32_t init-value='-1' since='v0.47.01'/>
     </class-type>
 
     <class-type type-name='history_event_artifact_foundst' inherits-from='history_event'>
@@ -1834,6 +1972,7 @@
         <int32_t name='defender_civ' ref-target='historical_entity'/>
         <int32_t name='site_civ' ref-target='historical_entity'/>
         <int32_t name='site' ref-target='world_site'/>
+        <int32_t init-value='-1' since='v0.47.01'/>
     </class-type>
 
     <class-type type-name='history_event_war_site_new_leaderst' inherits-from='history_event'>
@@ -2811,7 +2950,7 @@
         <compound type-name='language_name' name='name'/>
         <stl-vector name='attacker_civ' type-name='int32_t' ref-target='historical_entity'/>
         <stl-vector name='defender_civ' type-name='int32_t' ref-target='historical_entity'/>
-        <stl-vector/>
+        <stl-vector type-name='int32_t'/>
         <compound name='unk'>
             <stl-vector type-name='int16_t'/>
             <stl-vector type-name='int32_t'/>
@@ -2846,15 +2985,15 @@
         <stl-vector name='noncombat_hf' type-name='int32_t' ref-target='historical_figure'/>
 
         these new fields are probably mixed in above or below
-        <stl-vector/>
-        <stl-vector/>
+        <stl-vector type-name='int32_t'/>
+        <stl-vector type-name='int32_t'/>
         <int32_t/>
         <int32_t init-value='-1'/>
         <int32_t init-value='-1'/>
         <stl-vector/>
         <stl-vector/>
-        <stl-vector/>
-        <stl-vector/>
+        <stl-vector type-name='int32_t'/>
+        <stl-vector type-name='int32_t'/>
 
         <stl-vector name='attacker_squad_entity_pop' type-name='int32_t'/>
         <stl-vector name='attacker_squad_counts' type-name='int32_t'/>
@@ -3074,8 +3213,22 @@
         <stl-vector name='events' pointer-type='history_event'/>
         <stl-vector name='events_death' pointer-type='history_event'/>
 
-        <stl-vector since='v0.47.01'/>
-        <stl-vector since='v0.47.01'/>
+        <stl-vector since='v0.47.01'>
+            <pointer>
+                <compound>
+                    <static-array type-name='int32_t' count='4610'/>
+                </compound>
+            </pointer>
+        </stl-vector>
+        <stl-vector since='v0.47.01'>
+            <pointer>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+            </pointer>
+        </stl-vector>
 
         <stl-vector name='figures' pointer-type='historical_figure'/>
 
@@ -3096,10 +3249,45 @@
         <int32_t name='total_semimegabeasts'/>
         <stl-vector/>
         <static-array name='unk_v42_1' type-name='int16_t' count='28' since='v0.42.01'/> unsure but 16-bit values make more sense than 32-bit
-        <stl-vector since='v0.47.01' comment='Not hist figs, nor history events. When looked at like hist figs the first field looks like an index, and history events crashes DF'/>
+        <stl-vector since='v0.47.01' comment='Not hist figs, nor history events. When looked at like hist figs the first field looks like an index, and history events crashes DF'>
+            <pointer>
+                <int32_t/>
+                <pointer>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int16_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                    <int32_t/>
+                </pointer>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+                <int32_t/>
+            </pointer>
+        </stl-vector>
         <stl-vector name='live_megabeasts' pointer-type='historical_figure'/>
         <stl-vector name='live_semimegabeasts' pointer-type='historical_figure'/>
-        <stl-vector name='unk_histfig_3' pointer-type='historical_figure'/> 
+        <stl-vector name='unk_histfig_3' pointer-type='historical_figure'/>
         <stl-vector name='unk_histfig_4' pointer-type='historical_figure'/>
         <stl-vector name='unk_histfig_5' pointer-type='historical_figure'/>
         <stl-vector since='v0.47.01'/>
@@ -3108,7 +3296,7 @@
         <static-array name='unk_v40_1' since='v0.40.01' count='15'>
             <stl-vector pointer-type='historical_figure'/>
         </static-array>
-        
+
         <stl-vector name='unk_histfig_6' since='v0.42.01' pointer-type='historical_figure'/>
         <stl-vector name='unk_histfig_7' since='v0.42.01' pointer-type='historical_figure'/>
         <stl-vector name='unk_histfig_8' since='v0.42.01' pointer-type='historical_figure'/>
